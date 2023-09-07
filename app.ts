@@ -1,5 +1,5 @@
-const express = require('express');
-const axios = require('axios');
+import express from 'express';
+import axios from 'axios';
 const app = express();
 const port = 3000;
 
@@ -10,23 +10,20 @@ var corsOptions = {
 // Use EJS as the template engine
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
-const cors = require("cors")
+
 // Middleware to parse POST requests
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cors())
 app.get('/', (req, res) => {
   res.render('zones', { zones: [], state: '' });
 });
 app.use(express.static(__dirname));
 
-//POST ZONE
+//ZONES
 app.post('/zones', async (req, res) => {
   try {
-    console.log("I got triggered!")
     const state = req.body.state;
     const zoneResponse = await axios.get(`https://api.weather.gov/zones/forecast?area=${state}`);
-    
     const zoneListSorted = zoneResponse.data.features.sort((a, b) => {
       return a.properties.name.localeCompare(b.properties.name);
     });
