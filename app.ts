@@ -19,6 +19,8 @@ app.get('/', (req, res) => {
   res.render('zones', { zones: [], state: '' });
 });
 app.use(express.static(__dirname));
+
+//POST ZONE
 app.post('/zones', async (req, res) => {
   try {
     console.log("I got triggered!")
@@ -35,6 +37,21 @@ app.post('/zones', async (req, res) => {
     res.status(500).send('An error occurred while fetching data');
   }
 });
+
+//GET WEATHER
+app.get('/current-weather/:zone_id',async (req,res)=>{
+  try{
+  const zone_id=req.params.zone_id;
+  const weatherRes= await axios.get(`https://api.weather.gov/zones/forecast/${zone_id}/observations?limit=1`)
+  console.log({name:"WEATHER DATA",value:weatherRes.data});
+  const currentWeather = weatherRes.data.features[0].properties;
+  res.render('weather', { current_wx: currentWeather });
+  }
+  catch (error) {
+    console.error(error);
+    res.status(500).send('An error occurred while fetching data');
+  }
+})
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);

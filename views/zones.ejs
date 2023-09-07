@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Zones</title>
-</head>
 <body>
     <h2 class="text-lg">Zones in <%= state %></h2>
     <div class="grid grid-cols-3 gap-x-4 mt-3">
       <% for (const zone of zones) { %>
-        <div><%= zone.properties.name %></div>
+        <a href="#" hx-get="/current-weather/<%=zone.properties.id %>" hx-target="#weather">
+          <%= zone.properties.name %></a>
       <% } %>
     </div>
 
