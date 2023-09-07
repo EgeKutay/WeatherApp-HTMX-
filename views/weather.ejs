@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h2 class="text-lg">Current Conditions</h2>
+    <div class="grid grid-cols-2 gap-x-4 mt-3">
+        <label class="font-semibold block">Temperature</label>
+       <%= current_wx.temperature.value.toFixed(2) %>&deg; C
+    
+        <label class="font-semibold block">Heat Index</label>
+        <%= current_wx.heatIndex.value.toFixed(2) %>&deg; C
+    
+        <label class="font-semibold block">Wind Speed</label>
+        <%= current_wx.windSpeed.value %> km/h
+    
+        <label class="font-semibold block">Humidity</label>
+        <%= current_wx.relativeHumidity.value.toFixed(2) %>
+    </div>
+
+</body>
+</html>
